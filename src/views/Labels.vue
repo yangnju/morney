@@ -1,8 +1,9 @@
 <template>
-<div>
-  我是Labels组件
-  <Nav/>
-</div>
+  <div>
+    <Layout>
+      <p>我是 Labels 组件</p>
+    </Layout>
+  </div>
 </template>
 
 <script lang="ts">
