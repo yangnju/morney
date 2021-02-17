@@ -1,6 +1,7 @@
 <template>
 <div>
   我是Statistics组件
+  <Nav/>
 </div>
 </template>
 

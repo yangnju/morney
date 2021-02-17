@@ -1,6 +1,7 @@
 <template>
 <div>
   我是Labels组件
+  <Nav/>
 </div>
 </template>
 

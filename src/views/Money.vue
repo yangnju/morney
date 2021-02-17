@@ -1,6 +1,8 @@
 <template>
 <div>
-  我是Money组件</div>
+  我是Money组件
+  <Nav/>
+</div>
 </template>
 
 <script lang="ts">
