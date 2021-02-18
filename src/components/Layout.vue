@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
 .nav-wrapper {
-  background-color: darkgray;
+  border: 1px solid red;
   display: flex;
   //纵向排列
   flex-direction: column;
