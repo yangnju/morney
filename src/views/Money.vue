@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <Layout>
-      <p>我是 Money 组件</p>
-    </Layout>
-  </div>
+<div>
+  <div>tag</div>
+  <div></div>
+</div>
 </template>
 
 <script lang="ts">
@@ -13,5 +12,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/assets/style/helper.scss';
+p{
+  color: $red;
+}
 
 </style>
