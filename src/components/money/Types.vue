@@ -8,8 +8,23 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+// 告诉vue export里面的内容是组件,vue-class-component包含装饰器，是一个第三方的，比官方好用，具体用法可以看vue-class-component 或 官方装饰器文档。
+import Component from "vue-class-component";
+
+@Component
+export  default class Types extends Vue {
+  type = '-'
+  // ts中是不允许出现any类型的参数的
+  selectType(type: string) {
+    if(type !== '-' && type !== '+') {
+      throw new Error('type is unknown')
+    }
+    this.type = type
+  }
+}
+/*export default {
   name: "Types",
   data(){
     return{
@@ -24,7 +39,7 @@ export default {
       this.type = type
     }
   }
-}
+}*/
 </script>
 
 <style lang="scss" scoped>
