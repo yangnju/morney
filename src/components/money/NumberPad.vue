@@ -1,29 +1,82 @@
 <template>
   <div class="numberPad">
-    <div class="output">100</div>
+    <div class="output">{{ output }}</div>
     <div class="buttons">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>删除</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>清空</button>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="ok">OK</button>
-      <button class="zero">0</button>
-      <button>.</button>
+      <!--inputContent可以不传参数，是因为vue会自动传给函数一个event事件-->
+      <button @click="inputContent">1</button>
+      <button @click="inputContent">2</button>
+      <button @click="inputContent">3</button>
+      <button @click="remove">删除</button>
+      <button @click="inputContent">4</button>
+      <button @click="inputContent">5</button>
+      <button @click="inputContent">6</button>
+      <button @click="clear">清空</button>
+      <button @click="inputContent">7</button>
+      <button @click="inputContent">8</button>
+      <button @click="inputContent">9</button>
+      <button @click="ok" class="ok">OK</button>
+      <button @click="inputContent" class="zero">0</button>
+      <button @click="inputContent">.</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "NumberPad"
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class NumberPad extends Vue {
+  // 因为'0'就是字符串，所以不需要在output后面再加 : string
+  output = '0';
+
+  // 使用vue自动传递的event事件，事件类型要根据mdn来，自己查
+  inputContent(event: MouseEvent) {
+    // target可能有很多种，所以会因为情况没有写全而报错，as HTMLButtonElement 作用是强制规定是button，避免报错
+    const button = (event.target as HTMLButtonElement);
+
+    // !表示的是不为空（null、undefined)，在这里相当于 as string
+    const input = button.textContent as string;
+
+    // 超过16位就不再增加数字
+    if (this.output.length === 16) {
+      return;
+    }
+
+    if (this.output === '0') {
+      // 如果input的值是0123456789
+      if ('0123456789'.indexOf(input) >= 0) {
+        this.output = input;
+      } else {
+        // 否则就加在后面
+        this.output += input;
+      }
+      return;
+    }
+
+    // 如果input中有了'.'  或者就是 '.'
+    if (this.output.indexOf('.') >= 0 && input === '.') {
+      return;
+    }
+    this.output += input;
+  }
+
+  remove() {
+    // 如果只有一位，点击删除直接显示0
+    if (this.output.length === 1) {
+      this.output = '0';
+    } else {
+      // 否则删除末尾一位
+      this.output = this.output.slice(0, -1);
+    }
+  }
+
+  clear() {
+    this.output = '0';
+  }
+
 }
+
 </script>
 
 <style lang="scss" scoped>
