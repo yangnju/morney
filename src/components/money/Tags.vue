@@ -1,29 +1,55 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <!--如果选中的tag里包含当前的tag，就添加selected的class-->
+      <li v-for="tag in dataSource"
+          :key="tag"
+          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)">{{ tag }}
+      </li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Tags"
+<script lang="ts">
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop() readonly dataSource: string[] | undefined;
+  selectedTags: string[] = [];
+
+  toggle(tag: string) {
+    // 将选中的tag中包含点击的tag 赋值给 index
+    const index = this.selectedTags.indexOf(tag);
+    // 如果选中的tag中包含点击的tag，就把点记得tag删掉
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+  }
+
+  create() {
+    const name = window.prompt('请输入标签名');
+    if (name === '') {
+      window.alert('请输入标签内容');
+      // this.dataSource 是为了排除 undefined
+    } else if (this.dataSource) {
+      // 触发事件 update:dataSource ，值是之前的数组，用展开运算符...将之前的数组展开，后面接上新增的标签name
+      this.$emit('update:dataSource', [...this.dataSource, name]);
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+
 .tags {
   font-size: 14px;
   padding: 16px;
@@ -44,6 +70,11 @@ export default {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+
+      &.selected {
+        background-color: #333333;
+        color: #f5f5f5;
+      }
     }
   }
 

@@ -3,7 +3,8 @@
     <NumberPad/>
     <Types/>
     <notes/>
-    <tags/>
+    <!--.sync 会接收组件对DataSource的修改-->
+    <tags :data-source.sync="tags"/>
   </Layout>
 </template>
 
@@ -15,6 +16,11 @@ import Tags from "@/components/money/Tags.vue";
 export default {
   name: 'Money',
   components: {Tags, Notes, Types, NumberPad},
+  data(){
+    return{
+      tags: ['衣','食','住','行','娱乐']
+    }
+  }
 };
 </script>
 
