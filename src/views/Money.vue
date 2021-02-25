@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     {{ record }}
-    <NumberPad @update:value="onUpdateAmount"/>
+    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <notes @update:value="onUpdateNotes"/>
     <!--.sync 会接收组件对DataSource的修改-->
@@ -29,6 +29,7 @@ type Record = {
 })
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行', '娱乐'];
+  recordList: Record[] = [];
   record: Record = {
     tags: [], notes: '', type: '-', amount: 0
   };
@@ -41,13 +42,19 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-/*  .sync 之后就不再需要
-  onUpdateType(value: string) {
-    this.record.type = value;
-  }*/
+  /*  .sync 之后就不再需要
+    onUpdateType(value: string) {
+      this.record.type = value;
+    }*/
 
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
+  }
+
+  saveRecord() {
+    this.recordList.push(this.record)
+    localStorage.set('')
+
   }
 }
 </script>
