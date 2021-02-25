@@ -11,18 +11,24 @@
 <script lang="ts">
 import Vue from 'vue';
 // 告诉vue export里面的内容是组件,vue-class-component包含装饰器，是一个第三方的，比官方好用，具体用法可以看vue-class-component 或 官方装饰器文档。
-import {Component} from "vue-property-decorator";
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  type = '-';
+  // ！是为了无视没有初始值
+  @Prop() readonly value!: string;
 
   // ts中是不允许出现any类型的参数的
   selectType(type: string) {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.type = type;
+    this.$emit('update:value', type);
+  }
+
+  @Watch('type')
+  onTypeChanged(value: string) {
+    this.$emit('update:value', value);
   }
 }
 /*export default {

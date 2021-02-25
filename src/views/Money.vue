@@ -1,6 +1,7 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount"/>
+    {{ record }}
+    <NumberPad @update:value="onUpdateAmount"/>
     <Types :value.sync="record.type"/>
     <notes @update:value="onUpdateNotes"/>
     <!--.sync 会接收组件对DataSource的修改-->
@@ -9,6 +10,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import NumberPad from '@/components/money/NumberPad.vue';
 import Types from '@/components/money/Types.vue';
 import Notes from '@/components/money/Notes.vue';
@@ -16,11 +18,12 @@ import Tags from '@/components/money/Tags.vue';
 import {Component} from 'vue-property-decorator';
 
 type Record = {
-  tags: string[]
-  notes: string
-  type: string
-  amount: string
+  tags: string[];
+  notes: string;
+  type: string;
+  amount: number;
 }
+
 @Component({
   components: {Tags, Notes, Types, NumberPad}
 })
@@ -36,6 +39,15 @@ export default class Money extends Vue {
 
   onUpdateNotes(value: string) {
     this.record.notes = value;
+  }
+
+/*  .sync 之后就不再需要
+  onUpdateType(value: string) {
+    this.record.type = value;
+  }*/
+
+  onUpdateAmount(value: string) {
+    this.record.amount = parseFloat(value);
   }
 }
 </script>
