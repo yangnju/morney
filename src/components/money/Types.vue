@@ -31,22 +31,6 @@ export default class Types extends Vue {
     this.$emit('update:value', value);
   }
 }
-/*export default {
-  name: "Types",
-  data(){
-    return{
-      type:'-'
-    }
-  },
-  methods:{
-    selectType(type) {
-      if(type !== '-' && type !== '+') {
-        throw new Error('type is unknown')
-      }
-      this.type = type
-    }
-  }
-}*/
 </script>
 
 <style lang="scss" scoped>
