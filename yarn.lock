@@ -10367,10 +10367,10 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@~7.5.4:
-  version "4.3.0-dev.20210221"
-  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.3.0-dev.20210221.tgz?cache=0&sync_timestamp=1613891922047&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-4.3.0-dev.20210221.tgz#63a331e9dcd2f4e5ece7c139cb9e81fed447e883"
-  integrity sha1-Y6Mx6dzS9OXs58E5y56B/tRH6IM=
+typescript@~4.3.0:
+  version "4.3.0-dev.20210228"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-4.3.0-dev.20210228.tgz?cache=0&sync_timestamp=1614497564110&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-4.3.0-dev.20210228.tgz#5b387a9158de69af35dd523314ec5d36ff6494ac"
+  integrity sha1-Wzh6kVjeaa813VIzFOxdNv9klKw=
 
 uglify-js@3.4.x:
   version "3.4.10"
