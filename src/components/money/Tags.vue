@@ -6,9 +6,9 @@
     <ul class="current">
       <!--如果选中的tag里包含当前的tag，就添加selected的class-->
       <li v-for="tag in dataSource"
-          :key="tag"
+          :key="tag.name"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag }}
+          @click="toggle(tag)">{{ tag.name }}
       </li>
     </ul>
   </div>
@@ -26,7 +26,7 @@ export default class Tags extends Vue {
   toggle(tag: string) {
     // 将选中的tag中包含点击的tag 赋值给 index
     const index = this.selectedTags.indexOf(tag);
-    // 如果选中的tag中包含点击的tag，就把点记得tag删掉
+    // 如果选中的tag中包含点击的tag，就把点击的tag删掉
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {

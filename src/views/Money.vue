@@ -16,10 +16,10 @@ import Notes from '@/components/money/Notes.vue';
 import Tags from '@/components/money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from  '@/models/tagListModel'
+import tagListModel2 from '@/models/tagListModel2'
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch()
+const tagList = tagListModel2.fetch()
 
 @Component({
   components: {Tags, Notes, Types, NumberPad}
