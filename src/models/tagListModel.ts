@@ -5,13 +5,13 @@ type Tag = {
   name: string;
 }
 
-type TagListModel2 = {
+type TagListModel = {
   data: Tag[];
   fetch: () => Tag[];
   create: (name: string) => 'success' | 'duplicated'; // 联合类型
   save: () => void;
 }
-const tagListModel: TagListModel2 = {
+const tagListModel: TagListModel = {
   data: [],
   fetch() {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');

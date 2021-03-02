@@ -17,7 +17,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import tagListModel2 from '@/models/tagListModel2';
+import tagListModel from '@/models/tagListModel';
 import FormItem from '@/components/money/FormItem.vue';
 import Button from '@/components/Button.vue';
 
@@ -27,8 +27,8 @@ import Button from '@/components/Button.vue';
 export default class EditLabel extends Vue {
   create() {
     const id = this.$route.params.id;
-    tagListModel2.fetch();
-    const tags = tagListModel2.data;
+    tagListModel.fetch();
+    const tags = tagListModel.data;
     const tag = tags.filter(t => t.id === id)[0];
     if (tag) {
       console.log(tag);

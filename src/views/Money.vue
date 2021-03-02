@@ -22,10 +22,10 @@ import FormItem from '@/components/money/FormItem.vue';
 import Tags from '@/components/money/Tags.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
-import tagListModel2 from '@/models/tagListModel2';
+import tagListModel from '@/models/tagListModel';
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel2.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: {Tags, FormItem, Types, NumberPad}
