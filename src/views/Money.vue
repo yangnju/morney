@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
+    {{ record }}
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <div class="notes">
@@ -46,19 +46,12 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-  /*  .sync 之后就不再需要
-    onUpdateType(value: string) {
-      this.record.type = value;
-    }*/
-
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
 
   saveRecord() {
-    const record2: RecordItem = recordListModel.clone(this.record);
-    record2.createdAt = new Date();
-    this.recordList.push(record2);
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
