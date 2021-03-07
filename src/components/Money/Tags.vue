@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <!--如果选中的tag里包含当前的tag，就添加selected的class-->
-      <li v-for="tag in dataSource"
+      <li v-for="tag in tagList"
           :key="tag.name"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">{{ tag.name }}
@@ -16,11 +16,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
+import store from '@/store/index2';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() readonly dataSource: string[] | undefined;
+  tagList = store.fetchTags();
   selectedTags: string[] = [];
 
   toggle(tag: string) {
@@ -32,18 +33,13 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-    this.$emit('update:value',this.selectedTags)
+    this.$emit('update:value', this.selectedTags);
   }
 
   create() {
     const name = window.prompt('请输入标签名');
-    if (name === '') {
-      window.alert('请输入标签内容');
-      // this.dataSource 是为了排除 undefined
-    } else if (this.dataSource) {
-      // 触发事件 update:dataSource ，值是之前的数组，用展开运算符...将之前的数组展开，后面接上新增的标签name
-      this.$emit('update:dataSource', [...this.dataSource, name]);
-    }
+    if (!name) {return window.alert('标签不能为空');}
+    store.createTag(name);
   }
 }
 </script>
