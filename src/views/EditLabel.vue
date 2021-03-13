@@ -25,10 +25,14 @@ import Button from '@/components/Button.vue';
   components: {Button, FormItem}
 })
 export default class EditLabel extends Vue {
-  tag?: Tag = undefined;
+  get tag() {
+    return this.$store.state.currentTag;
+  }
 
   created() {
-    // TODO
+    const id = this.$route.params.id;
+    this.$store.commit('setCurrentTag', id);
+    console.log('fuck');
     if (!this.tag) {
       this.$router.replace('/404');
     }
@@ -44,7 +48,7 @@ export default class EditLabel extends Vue {
   remove() {
     if (this.tag) {
       // TODO
-      return
+      return;
     }
   }
 
