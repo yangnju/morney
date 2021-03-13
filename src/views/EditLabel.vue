@@ -3,7 +3,7 @@
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click="goBack"/>
       <span class="title">编辑标签</span>
-      <span class="rightIcon"></span>
+      <span class="rightIcon"/>
     </div>
     <div class="form-wrapper">
       <FormItem :value="tag.name"
@@ -15,6 +15,7 @@
     </div>
   </Layout>
 </template>
+
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
@@ -22,7 +23,7 @@ import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
 
 @Component({
-  components: {Button, FormItem}
+  components: {Button, FormItem},
 })
 export default class EditLabel extends Vue {
   get tag() {
@@ -31,24 +32,26 @@ export default class EditLabel extends Vue {
 
   created() {
     const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
-    console.log('fuck');
+    console.log(id);
     if (!this.tag) {
+      console.log('no tag');
       this.$router.replace('/404');
     }
   }
 
   update(name: string) {
-    // TODO
     if (this.tag) {
-      //store.updateTag(this.tag.id, name);
+      this.$store.commit('updateTag', {
+        id: this.tag.id, name
+      });
     }
   }
 
   remove() {
     if (this.tag) {
-      // TODO
-      return;
+      this.$store.commit('removeTag', this.tag.id);
     }
   }
 
@@ -57,6 +60,7 @@ export default class EditLabel extends Vue {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .navBar {
   text-align: center;
