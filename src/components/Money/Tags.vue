@@ -1,33 +1,39 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
-      <!--如果选中的tag里包含当前的tag，就添加selected的class-->
-      <li v-for="tag in tagList"
-          :key="tag.name"
+      <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">{{ tag.name }}
       </li>
     </ul>
   </div>
+
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import store from '@/store/index2';
+import {mixins} from 'vue-class-component';
+import TagHelper from '@/mixins/TagHelper';
 
-@Component
-export default class Tags extends Vue {
-  tagList = store.fetchTags();
+@Component({
+  computed: {
+    tagList() {
+      return this.$store.state.tagList;
+    }
+  }
+})
+export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
 
+  created() {
+    this.$store.commit('fetchTags');
+  }
+
   toggle(tag: string) {
-    // 将选中的tag中包含点击的tag 赋值给 index
     const index = this.selectedTags.indexOf(tag);
-    // 如果选中的tag中包含点击的tag，就把点击的tag删掉
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
@@ -35,20 +41,12 @@ export default class Tags extends Vue {
     }
     this.$emit('update:value', this.selectedTags);
   }
-
-  create() {
-    const name = window.prompt('请输入标签名');
-    if (!name) {return window.alert('标签不能为空');}
-    store.createTag(name);
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
-
 .tags {
-  background-color: white;
+  background: white;
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
@@ -60,7 +58,8 @@ export default class Tags extends Vue {
     flex-wrap: wrap;
 
     > li {
-      background: #d9d9d9;
+      $bg: #D9D9D9;
+      background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -70,8 +69,8 @@ export default class Tags extends Vue {
       margin-top: 4px;
 
       &.selected {
-        background-color: #333333;
-        color: #f5f5f5;
+        background: darken($bg, 50%);
+        color: white;
       }
     }
   }
