@@ -1,9 +1,8 @@
 <template>
   <div>
     <ul class="types">
-      <!--      如果type是-，增加selected，点击后改变type的值-->
-      <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
-      <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
+      <li :class="{[classPrefix+'-item']: classPrefix, selectd: value === '-'}" @click="selectType('-')">支出</li>
+      <li :class="{[classPrefix+'-item']: classPrefix, selectd: value === '+'}" @click="selectType('+')">收入</li>
     </ul>
   </div>
 </template>
@@ -15,8 +14,9 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  // ！是为了无视没有初始值
-  @Prop() readonly value!: string;
+
+  @Prop(String) readonly value!: string
+  @Prop(String) classPrefix?: string
 
   // ts中是不允许出现any类型的参数的
   selectType(type: string) {
